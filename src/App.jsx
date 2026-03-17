@@ -1,18 +1,16 @@
+import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import Home from './pages/Home';
 
 function App() {
   return (
-    <div className="min-h-screen" style={{ backgroundColor: 'var(--color-background)' }}>
+    <div className="min-h-screen flex flex-col">
       <Navbar />
-      
-      {/* Rest of your content */}
-      <main className="container mx-auto px-4">
-        <h1 style={{ color: 'var(--color-primary)' }} className="text-2xl font-bold mt-8">
-          Welcome to Dr. Dinesh Kumar Agarwal's Clinic
-        </h1>
-        <p style={{ color: 'var(--color-secondary)' }}>
-          Spine Surgery & Orthopaedics Specialist
-        </p>
+      <main className="flex-1">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          {/* Other routes will be added later */}
+        </Routes>
       </main>
     </div>
   );
