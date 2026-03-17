@@ -23,11 +23,11 @@ const Navbar = () => {
   }, [location]);
 
   const navLinks = [
-  { name: 'Home', href: '/' },
-  { name: 'About', href: '/about' },
-  { name: 'Reviews', href: '/reviews' },  // Changed from /#reviews to /reviews
-  { name: 'Contact', href: '/contact' },
-];
+    { name: 'Home', href: '/' },
+    { name: 'About', href: '/about' },
+    { name: 'Reviews', href: '/reviews' },
+    { name: 'Contact', href: '/contact' },
+  ];
 
   return (
     <>
@@ -39,7 +39,7 @@ const Navbar = () => {
           <div className="flex items-center justify-between">
             {/* Logo - Doctor Info */}
             <Link to="/" className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center shadow-lg">
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center shadow-lg">
                 <MdLocalHospital className="text-white text-xl" />
               </div>
               
@@ -48,7 +48,7 @@ const Navbar = () => {
                 <span className="font-semibold text-gray-900 block text-sm sm:text-base leading-tight">
                   Dr. Dinesh Agarwal
                 </span>
-                <span className="text-xs text-blue-600 font-medium flex items-center gap-1">
+                <span className="text-xs text-cyan-600 font-medium flex items-center gap-1">
                   <GiSpineArrow className="text-xs" />
                   <span>Spine & Ortho Specialist</span>
                 </span>
@@ -61,14 +61,14 @@ const Navbar = () => {
                 <Link
                   key={link.name}
                   to={link.href}
-                  className="text-gray-600 hover:text-blue-600 text-sm font-medium"
+                  className="text-gray-600 hover:text-cyan-600 text-sm font-medium transition-colors"
                 >
                   {link.name}
                 </Link>
               ))}
               <Link
                 to="/book-appointment"
-                className="bg-blue-600 text-white px-5 py-2.5 rounded-xl text-sm font-medium hover:bg-blue-700 transition-all shadow-md flex items-center gap-2"
+                className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-5 py-2.5 rounded-xl text-sm font-medium hover:from-blue-600 hover:to-cyan-600 transition-all shadow-md flex items-center gap-2"
               >
                 <FiCalendar className="text-sm" />
                 <span>Book Now</span>
@@ -79,7 +79,7 @@ const Navbar = () => {
             <div className="flex items-center space-x-3 md:hidden">
               <Link
                 to="/book-appointment"
-                className="bg-blue-600 text-white px-4 py-2 rounded-xl text-xs font-medium shadow-md flex items-center gap-1.5"
+                className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-xl text-xs font-medium shadow-md flex items-center gap-1.5"
               >
                 <FiCalendar className="text-xs" />
                 <span>Book</span>
@@ -121,7 +121,7 @@ const Navbar = () => {
                 key={link.name}
                 to={link.href}
                 onClick={() => setIsOpen(false)}
-                className="block px-6 py-4 text-gray-700 hover:bg-blue-50 hover:text-blue-600 border-b border-gray-100 last:border-0"
+                className="block px-6 py-4 text-gray-700 hover:bg-cyan-50 hover:text-cyan-600 border-b border-gray-100 last:border-0 transition-colors"
               >
                 {link.name}
               </Link>
@@ -131,13 +131,13 @@ const Navbar = () => {
           {/* Doctor Info at Bottom */}
           <div className="border-t border-gray-200 p-6">
             <p className="font-medium text-gray-900">Dr. Dinesh Agarwal</p>
-            <p className="text-sm text-blue-600 mt-1">Spine & Ortho Specialist</p>
+            <p className="text-sm text-cyan-600 mt-1">Spine & Ortho Specialist</p>
             
             {/* Book Button */}
             <Link
               to="/book-appointment"
               onClick={() => setIsOpen(false)}
-              className="block w-full bg-blue-600 text-white text-center py-3 rounded-xl font-medium hover:bg-blue-700 transition-colors mt-4"
+              className="block w-full bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-center py-3 rounded-xl font-medium hover:from-blue-600 hover:to-cyan-600 transition-colors mt-4"
             >
               Book Appointment
             </Link>

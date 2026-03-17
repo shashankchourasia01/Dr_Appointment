@@ -28,15 +28,15 @@ const ProfessionalExcellence = () => {
               key={index}
               className="group bg-gradient-to-b from-gray-50 to-white p-4 md:p-6 rounded-xl md:rounded-2xl text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
             >
-              {/* Icon Container */}
-              <div className="w-12 h-12 md:w-16 md:h-16 bg-blue-100 rounded-xl md:rounded-2xl flex items-center justify-center mx-auto mb-2 md:mb-4 group-hover:bg-blue-600 transition-colors duration-300">
-                <span className="text-blue-600 text-xl md:text-2xl group-hover:text-white transition-colors duration-300">
+              {/* Icon Container - Updated to cyan/blue gradient */}
+              <div className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl md:rounded-2xl flex items-center justify-center mx-auto mb-2 md:mb-4 group-hover:from-blue-500 group-hover:to-cyan-500 transition-all duration-300 shadow-sm group-hover:shadow-lg">
+                <span className="text-cyan-600 text-xl md:text-2xl group-hover:text-white transition-colors duration-300">
                   {getIcon(item.label)}
                 </span>
               </div>
               
-              {/* Label */}
-              <p className="text-gray-800 font-semibold text-xs md:text-base">
+              {/* Label - Updated color on hover */}
+              <p className="text-gray-800 font-semibold text-xs md:text-base group-hover:text-cyan-600 transition-colors duration-300">
                 {item.label}
               </p>
             </div>

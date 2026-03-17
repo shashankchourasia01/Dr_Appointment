@@ -8,9 +8,9 @@ const CTASection = () => {
 
   return (
     <section className="relative bg-gradient-to-br from-gray-900 via-gray-900 to-gray-800 text-white overflow-hidden">
-      {/* Decorative Background Elements - Matching Footer */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/10 rounded-full filter blur-3xl"></div>
-      <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-600/10 rounded-full filter blur-3xl"></div>
+      {/* Decorative Background Elements - Updated to blue/cyan */}
+      <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full filter blur-3xl"></div>
+      <div className="absolute bottom-0 left-0 w-64 h-64 bg-cyan-500/10 rounded-full filter blur-3xl"></div>
       
       {/* Pattern Overlay */}
       <div className="absolute inset-0 opacity-5">
@@ -22,19 +22,19 @@ const CTASection = () => {
 
       <div className="container mx-auto px-4 py-16 md:py-20 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
-          {/* Icon with Gradient Background */}
+          {/* Icon with Gradient Background - Updated to blue/cyan */}
           <div className="flex justify-center mb-8">
             <div className="relative">
-              <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-600/20 transform rotate-3 hover:rotate-0 transition-transform duration-300">
+              <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/20 transform rotate-3 hover:rotate-0 transition-transform duration-300">
                 <MdLocalHospital className="text-white text-4xl" />
               </div>
               <div className="absolute -top-2 -right-2 w-6 h-6 bg-green-500 rounded-full border-2 border-gray-900 animate-pulse"></div>
             </div>
           </div>
 
-          {/* Title with Gradient */}
+          {/* Title with Gradient - Updated to match */}
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-white to-cyan-200 bg-clip-text text-transparent">
               {cta.title}
             </span>
           </h2>
@@ -44,29 +44,13 @@ const CTASection = () => {
             {cta.description}
           </p>
 
-          {/* Stats/Features */}
-          {/* <div className="flex flex-wrap justify-center gap-4 mb-10">
-            <div className="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-full backdrop-blur-sm">
-              <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-              <span className="text-sm text-gray-300">15+ Years Experience</span>
-            </div>
-            <div className="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-full backdrop-blur-sm">
-              <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
-              <span className="text-sm text-gray-300">5000+ Happy Patients</span>
-            </div>
-            <div className="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-full backdrop-blur-sm">
-              <span className="w-2 h-2 bg-purple-500 rounded-full"></span>
-              <span className="text-sm text-gray-300">24/7 Support</span>
-            </div>
-          </div> */}
-
-          {/* CTA Button with Glow Effect */}
+          {/* CTA Button with Glow Effect - Updated to blue/cyan */}
           <Link
             to="/book-appointment"
-            className="relative group inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-10 py-5 rounded-xl text-lg font-semibold transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
+            className="relative group inline-flex items-center gap-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-10 py-5 rounded-xl text-lg font-semibold transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
           >
-            {/* Glow Effect */}
-            <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl blur opacity-50 group-hover:opacity-75 transition duration-300"></div>
+            {/* Glow Effect - Updated to blue/cyan */}
+            <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl blur opacity-50 group-hover:opacity-75 transition duration-300"></div>
             
             {/* Button Content */}
             <div className="relative flex items-center gap-3">
@@ -76,11 +60,11 @@ const CTASection = () => {
             </div>
           </Link>
 
-          {/* Trust Badge */}
-          {/* <p className="text-sm text-gray-500 mt-6 flex items-center justify-center gap-2">
-            <GiSpineArrow className="text-blue-500" />
-            <span>No registration fee • Instant confirmation</span>
-          </p> */}
+          {/* Simple Trust Text */}
+          <p className="text-sm text-gray-400 mt-6">
+            <span className="opacity-75">⏱️ Instant confirmation •</span>
+            <span className="text-cyan-400 ml-1">No registration fee</span>
+          </p>
         </div>
       </div>
     </section>
