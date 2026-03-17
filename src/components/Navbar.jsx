@@ -23,11 +23,11 @@ const Navbar = () => {
   }, [location]);
 
   const navLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'About', href: '/about' },
-    { name: 'Reviews', href: '/#reviews' },
-    { name: 'Contact', href: '/contact' },
-  ];
+  { name: 'Home', href: '/' },
+  { name: 'About', href: '/about' },
+  { name: 'Reviews', href: '/reviews' },  // Changed from /#reviews to /reviews
+  { name: 'Contact', href: '/contact' },
+];
 
   return (
     <>

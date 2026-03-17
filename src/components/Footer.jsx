@@ -8,11 +8,11 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const quickLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'About', path: '/about' },
-    { name: 'Reviews', path: '/#reviews' },
-    { name: 'Contact', path: '/contact' },
-  ];
+  { name: 'Home', path: '/' },
+  { name: 'About', path: '/about' },
+  { name: 'Reviews', path: '/reviews' },  // Make sure this is /reviews
+  { name: 'Contact', path: '/contact' },
+];
 
   const services = [
     { name: 'Spine Surgery', path: '#' },

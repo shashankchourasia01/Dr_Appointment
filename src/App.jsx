@@ -1,7 +1,10 @@
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Footer from './components/Footer'; // Import Footer
+import Footer from './components/Footer';
 import Home from './pages/Home';
+import About from './pages/About';      // Import About
+import Reviews from './pages/Reviews';  // Import Reviews
+import Contact from './pages/Contact';  // Import Contact
 
 function App() {
   return (
@@ -10,10 +13,13 @@ function App() {
       <main className="flex-1">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />          {/* About Route */}
+          <Route path="/reviews" element={<Reviews />} />      {/* Reviews Route */}
+          <Route path="/contact" element={<Contact />} />      {/* Contact Route */}
           {/* Other routes will be added later */}
         </Routes>
       </main>
-      <Footer /> {/* Add Footer here */}
+      <Footer />
     </div>
   );
 }
