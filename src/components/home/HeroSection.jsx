@@ -17,17 +17,17 @@ const HeroSection = () => {
           <div className="w-full md:flex-1 flex justify-center">
             <div className="relative w-full max-w-[280px] md:max-w-md lg:max-w-lg">
               {/* Image Container - Banner Style Height */}
-              <div className="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-xl md:shadow-2xl aspect-[4/3] md:aspect-[4/3] lg:aspect-[16/12]">
-                {/* Image */}
-                <img 
-                  src="/src/assets/images/dinesh.jpg" 
-                  alt="Dr. Dinesh Agarwal"
-                  className="w-full h-full object-cover"
-                />
-                
-                {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent"></div>
-              </div>
+              <div className="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-xl md:shadow-2xl aspect-[4/3] md:aspect-[16/10] lg:aspect-[16/9] w-[calc(100%-2rem)] md:w-[calc(100%-4rem)] lg:w-[calc(100%-6rem)] mx-auto">
+  {/* Image */}
+  <img 
+    src="/src/assets/images/dinesh.jpg" 
+    alt="Dr. Dinesh Agarwal"
+    className="w-full h-full object-cover"
+  />
+  
+  {/* Gradient Overlay */}
+  <div className="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent"></div>
+</div>
 
               {/* Decorative Elements */}
               <div className="absolute -top-3 -right-3 w-16 h-16 md:w-24 md:h-24 bg-blue-200 rounded-full opacity-20 blur-2xl"></div>
