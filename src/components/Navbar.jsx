@@ -102,48 +102,66 @@ const Navbar = () => {
 
       {/* Mobile Sidebar */}
       <div className={`fixed inset-0 z-40 md:hidden transition-opacity duration-300 ${
-        isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
-      }`}>
-        {/* Backdrop */}
-        <div 
-          className="absolute inset-0 bg-black/40"
-          onClick={() => setIsOpen(false)}
-        />
+  isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
+}`}>
+  {/* Backdrop with Blur */}
+  <div 
+    className="absolute inset-0 bg-black/40 backdrop-blur-md"
+    onClick={() => setIsOpen(false)}
+  />
 
-        {/* Sidebar - positioned below navbar */}
-        <div className={`absolute right-0 top-[60px] w-64 bg-white shadow-xl transition-transform duration-300 ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}>
-          {/* Navigation Links */}
-          <div className="py-2">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.href}
-                onClick={() => setIsOpen(false)}
-                className="block px-6 py-4 text-gray-700 hover:bg-cyan-50 hover:text-cyan-600 border-b border-gray-100 last:border-0 transition-colors"
-              >
-                {link.name}
-              </Link>
-            ))}
-          </div>
-
-          {/* Doctor Info at Bottom */}
-          <div className="border-t border-gray-200 p-6">
-            <p className="font-medium text-gray-900">Dr. Dinesh Agarwal</p>
-            <p className="text-sm text-cyan-600 mt-1">Spine & Ortho Specialist</p>
-            
-            {/* Book Button */}
-            <Link
-              to="/book-appointment"
-              onClick={() => setIsOpen(false)}
-              className="block w-full bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-center py-3 rounded-xl font-medium hover:from-blue-600 hover:to-cyan-600 transition-colors mt-4"
-            >
-              Book Appointment
-            </Link>
-          </div>
+  {/* Sidebar - Full Height */}
+  <div className={`absolute right-0 top-0 h-full w-72 bg-white/95 backdrop-blur-sm shadow-2xl transition-transform duration-300 ${
+    isOpen ? 'translate-x-0' : 'translate-x-full'
+  }`}>
+    {/* Sidebar Header with Close Button */}
+    <div className="flex items-center justify-between p-4 border-b border-gray-100">
+      <div className="flex items-center gap-2">
+        <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
+          <MdLocalHospital className="text-white text-lg" />
         </div>
+        <span className="font-semibold text-gray-900">Menu</span>
       </div>
+      <button
+        onClick={() => setIsOpen(false)}
+        className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-gray-200 transition-colors"
+      >
+        <FiX className="text-gray-600 text-lg" />
+      </button>
+    </div>
+
+    {/* Navigation Links - Scrollable if needed */}
+    <div className="overflow-y-auto" style={{ height: 'calc(100vh - 180px)' }}>
+      <div className="py-2">
+        {navLinks.map((link) => (
+          <Link
+            key={link.name}
+            to={link.href}
+            onClick={() => setIsOpen(false)}
+            className="block px-6 py-4 text-gray-700 hover:bg-cyan-50 hover:text-cyan-600 border-b border-gray-100 last:border-0 transition-colors"
+          >
+            {link.name}
+          </Link>
+        ))}
+      </div>
+    </div>
+
+    {/* Doctor Info at Bottom - Fixed at bottom */}
+    <div className="absolute bottom-0 left-0 right-0 border-t border-gray-200 bg-white p-6">
+      <p className="font-medium text-gray-900">Dr. Dinesh Agarwal</p>
+      <p className="text-sm text-cyan-600 mt-1">Spine & Ortho Specialist</p>
+      
+      {/* Book Button */}
+      <Link
+        to="/book-appointment"
+        onClick={() => setIsOpen(false)}
+        className="block w-full bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-center py-3 rounded-xl font-medium hover:from-blue-600 hover:to-cyan-600 transition-colors mt-4"
+      >
+        Book Appointment
+      </Link>
+    </div>
+  </div>
+</div>
 
       {/* Spacer */}
       <div className="h-[60px]"></div>
