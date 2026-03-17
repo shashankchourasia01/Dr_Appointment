@@ -41,13 +41,13 @@ export const contactData = {
   quickActions: [
     {
       id: 1,
-      type: "emergency",
-      title: "Emergency Calls",
-      description: "For urgent ortho trauma care",
-      phone: "+91 123 456 7890",
-      phoneLink: "911234567890",
-      icon: "🚑",
-      bgColor: "from-red-500 to-red-600"
+      type: "ivr",
+      title: "IVR Calling",
+      description: "Automated booking service",
+      phone: "+91 98765 43210",
+      phoneLink: "919876543210",
+      icon: "📞",
+      bgColor: "from-purple-500 to-pink-500"
     },
     {
       id: 2,
@@ -60,13 +60,13 @@ export const contactData = {
     },
     {
       id: 3,
-      type: "ivr",
-      title: "IVR Calling",
-      description: "Automated booking service",
-      phone: "+91 98765 43210",
-      phoneLink: "919876543210",
-      icon: "📞",
-      bgColor: "from-purple-500 to-pink-500"
+      type: "emergency",
+      title: "Emergency Calls",
+      description: "For urgent ortho trauma care",
+      phone: "+91 123 456 7890",
+      phoneLink: "911234567890",
+      icon: "🚑",
+      bgColor: "from-red-500 to-red-600"
     }
   ],
 
