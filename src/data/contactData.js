@@ -7,7 +7,7 @@ export const contactData = {
   },
 
   // Clinics Data
-  clinics: {
+    clinics: {
     title: "Our Clinics",
     locations: [
       {
@@ -16,11 +16,12 @@ export const contactData = {
         tagline: "Primary Practice",
         address: "Katras Bazar, Dhanbad, Jharkhand - 828114",
         phone: "+91 82103 45678",
-        phoneLink: "918210345678", // WhatsApp format (without +)
+        phoneLink: "918210345678",
         timings: "09:00 AM – 01:00 PM",
         days: "Monday to Friday",
         mapLink: "https://maps.google.com/?q=Nichtipur+Hospital+Dhanbad",
-        coordinates: { lat: 23.7957, lng: 86.4304 } // Approximate
+        coordinates: { lat: 23.7957, lng: 86.4304 }, // Ye actual coordinates dene hain
+        icon: "/images/hospital-marker.png" // Optional: custom marker
       },
       {
         id: 2,
@@ -32,7 +33,8 @@ export const contactData = {
         timings: "04:00 PM – 08:00 PM",
         days: "Monday to Saturday",
         mapLink: "https://maps.google.com/?q=Momentum+Speciality+Clinic+Dhanbad",
-        coordinates: { lat: 23.8103, lng: 86.4412 } // Approximate
+        coordinates: { lat: 23.8103, lng: 86.4412 }, // Ye actual coordinates dene hain
+        icon: "/images/clinic-marker.png" // Optional: custom marker
       }
     ]
   },
