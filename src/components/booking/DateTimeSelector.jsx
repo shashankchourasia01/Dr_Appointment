@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { days, generateTimeSlots, locations } from '../../data/bookingData';
-import { MdAccessTime, MdDateRange, MdCheckCircle } from 'react-icons/md';
-import { format, isSaturday, isSunday } from 'date-fns'; // Import weekend check
+import { MdAccessTime, MdDateRange, MdCheckCircle, MdExpandMore, MdExpandLess } from 'react-icons/md';
+import { format, isSaturday, isSunday } from 'date-fns';
 
 const DateTimeSelector = ({ selectedLocation, selectedSlot, onSelectSlot, onNext, onBack }) => {
   const [selectedDate, setSelectedDate] = useState(days[0].fullDate);
   const [timeSlots, setTimeSlots] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [expandedHour, setExpandedHour] = useState(null);
 
   // Find selected location details
   const location = locations.find(loc => loc.id === selectedLocation);
@@ -21,6 +22,7 @@ const DateTimeSelector = ({ selectedLocation, selectedSlot, onSelectSlot, onNext
   useEffect(() => {
     if (selectedLocation && selectedDate) {
       setLoading(true);
+      setExpandedHour(null); // Reset expanded hour on date change
       
       // Simulate API call
       setTimeout(() => {
@@ -31,20 +33,12 @@ const DateTimeSelector = ({ selectedLocation, selectedSlot, onSelectSlot, onNext
     }
   }, [selectedLocation, selectedDate]);
 
-  // Group slots by time period (Morning/Afternoon/Evening)
-  const groupedSlots = timeSlots.reduce((acc, slot) => {
-    const hour = parseInt(slot.time.split(':')[0]);
-    let period = 'Afternoon';
-    
-    if (hour < 12) period = 'Morning';
-    else if (hour >= 17) period = 'Evening';
-    
-    if (!acc[period]) acc[period] = [];
-    acc[period].push(slot);
-    return acc;
-  }, {});
+  // Toggle hour expansion
+  const toggleHour = (hour) => {
+    setExpandedHour(expandedHour === hour ? null : hour);
+  };
 
-  // Check if current date is weekend to disable Continue button
+  // Check if current date is weekend
   const isCurrentDateWeekend = isDateWeekend(selectedDate);
 
   return (
@@ -62,7 +56,7 @@ const DateTimeSelector = ({ selectedLocation, selectedSlot, onSelectSlot, onNext
         </div>
       </div>
 
-      {/* Date Selector - Horizontal Scroll on Mobile with Weekend Handling */}
+      {/* Date Selector - Horizontal Scroll on Mobile */}
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-3">
           Select Date
@@ -109,7 +103,7 @@ const DateTimeSelector = ({ selectedLocation, selectedSlot, onSelectSlot, onNext
         )}
       </div>
 
-      {/* Time Slots - Only show if not weekend */}
+      {/* Time Slots - Dropdown Style */}
       {!isCurrentDateWeekend && (
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-3">
@@ -121,39 +115,64 @@ const DateTimeSelector = ({ selectedLocation, selectedSlot, onSelectSlot, onNext
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-cyan-500"></div>
             </div>
           ) : (
-            <div className="space-y-6">
-              {Object.entries(groupedSlots).map(([period, slots]) => (
-                <div key={period}>
-                  <h4 className="text-xs font-semibold text-gray-400 uppercase mb-2 flex items-center justify-between">
-                    <span>{period}</span>
-                    <span className="text-[10px] bg-blue-100 text-blue-600 px-2 py-0.5 rounded-full">
-                      3 min slots
-                    </span>
-                  </h4>
-                  <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-1.5">
-                    {slots.map((slot) => (
-                      <button
-                        key={slot.id}
-                        onClick={() => onSelectSlot(slot)}
-                        disabled={!slot.available}
-                        className={`relative p-2 rounded-lg text-xs font-medium transition-all ${
-                          selectedSlot?.id === slot.id
-                            ? 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-md'
-                            : slot.available
-                            ? 'bg-gray-50 text-gray-700 hover:bg-gray-100 border border-gray-200'
-                            : 'bg-gray-100 text-gray-400 cursor-not-allowed line-through opacity-50'
-                        }`}
-                      >
-                        <div>{slot.displayTime.split('–')[0].trim()}</div>
-                        <div className="text-[9px] opacity-75">3 min</div>
-                        
-                        {/* Selected Indicator */}
-                        {selectedSlot?.id === slot.id && (
-                          <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
-                        )}
-                      </button>
-                    ))}
-                  </div>
+            <div className="space-y-3">
+              {timeSlots.map((hourSlot) => (
+                <div key={hourSlot.hour} className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                  {/* Hour Header - Click to expand */}
+                  <button
+                    onClick={() => toggleHour(hourSlot.hour)}
+                    className="w-full px-4 py-3 flex items-center justify-between hover:bg-gray-50 transition-colors"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-gradient-to-br from-blue-100 to-cyan-100 rounded-lg flex items-center justify-center">
+                        <MdAccessTime className="text-cyan-600" />
+                      </div>
+                      <div className="text-left">
+                        <p className="font-medium text-gray-900">{hourSlot.fullDisplay}</p>
+                        <p className="text-xs text-gray-500">
+                          {hourSlot.availableCount} slots available
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs bg-green-100 text-green-600 px-2 py-1 rounded-full">
+                        3 min
+                      </span>
+                      {expandedHour === hourSlot.hour ? (
+                        <MdExpandLess className="text-xl text-gray-500" />
+                      ) : (
+                        <MdExpandMore className="text-xl text-gray-500" />
+                      )}
+                    </div>
+                  </button>
+
+                  {/* Expanded Sub-slots - 3-minute slots */}
+                  {expandedHour === hourSlot.hour && (
+                    <div className="p-4 bg-gray-50 border-t border-gray-200">
+                      <p className="text-xs text-gray-500 mb-3">Select a 3-minute slot:</p>
+                      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2">
+                        {hourSlot.subSlots.map((slot) => (
+                          <button
+                            key={slot.id}
+                            onClick={() => onSelectSlot(slot)}
+                            disabled={!slot.available}
+                            className={`p-2 rounded-lg text-xs font-medium transition-all ${
+                              selectedSlot?.id === slot.id
+                                ? 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-md'
+                                : slot.available
+                                ? 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
+                                : 'bg-gray-100 text-gray-400 cursor-not-allowed line-through opacity-50'
+                            }`}
+                          >
+                            {slot.displayTime.split('–')[0].trim()}
+                            {selectedSlot?.id === slot.id && (
+                              <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
+                            )}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               ))}
               
@@ -168,12 +187,25 @@ const DateTimeSelector = ({ selectedLocation, selectedSlot, onSelectSlot, onNext
         </div>
       )}
 
-      {/* Weekend Message - When no slots shown */}
+      {/* Weekend Message */}
       {isCurrentDateWeekend && (
         <div className="text-center py-12 bg-gray-50 rounded-xl">
           <MdAccessTime className="text-4xl text-gray-300 mx-auto mb-3" />
           <p className="text-gray-500">Doctor is not available on weekends</p>
           <p className="text-sm text-gray-400 mt-1">Please select a weekday (Monday-Friday)</p>
+        </div>
+      )}
+
+      {/* Selected Slot Summary */}
+      {selectedSlot && !isCurrentDateWeekend && (
+        <div className="bg-green-50 rounded-xl p-4 flex items-center gap-3">
+          <MdCheckCircle className="text-green-500 text-xl" />
+          <div>
+            <p className="text-sm font-medium text-gray-900">Selected Slot</p>
+            <p className="text-xs text-gray-600">
+              {format(new Date(selectedDate), 'EEE, dd MMM yyyy')} • {selectedSlot.displayTime}
+            </p>
+          </div>
         </div>
       )}
 

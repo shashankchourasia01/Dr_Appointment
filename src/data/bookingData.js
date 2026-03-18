@@ -56,7 +56,8 @@ export const locations = [
   }
 ];
 
-// Generate 3-minute time slots
+
+// Generate 1-hour time slots (not 3-minute)
 export const generateTimeSlots = (locationId, date) => {
   const location = locations.find(loc => loc.id === locationId);
   if (!location) return [];
@@ -64,37 +65,38 @@ export const generateTimeSlots = (locationId, date) => {
   const slots = [];
   const { start, end } = location.slotRange;
   
-  // Convert to minutes for precise calculation
-  const startMinutes = start * 60; // 9 AM = 540 minutes
-  const endMinutes = end * 60;     // 6 PM = 1080 minutes
-  
-  // Generate 3-minute slots
-  for (let minutes = startMinutes; minutes < endMinutes; minutes += 3) {
-    const hour = Math.floor(minutes / 60);
-    const minute = minutes % 60;
+  // Generate 1-hour slots
+  for (let hour = start; hour < end; hour++) {
+    const startTime = `${hour.toString().padStart(2, '0')}:00`;
+    const endTime = `${(hour + 1).toString().padStart(2, '0')}:00`;
     
-    const endMinutesSlot = minutes + 3;
-    const endHour = Math.floor(endMinutesSlot / 60);
-    const endMinute = endMinutesSlot % 60;
-    
-    const timeString = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
-    const endTimeString = `${endHour.toString().padStart(2, '0')}:${endMinute.toString().padStart(2, '0')}`;
-    
-    // Randomly mark some slots as booked (for demo) - 30% booked
-    const isBooked = Math.random() > 0.7;
-    
-    // Skip if end time exceeds range
-    if (endMinutesSlot <= endMinutes) {
-      slots.push({
-        id: `${locationId}-${date}-${timeString}`,
-        time: timeString,
-        endTime: endTimeString,
-        displayTime: `${formatTime(hour, minute)} – ${formatTime(endHour, endMinute)}`,
-        available: !isBooked,
-        date,
-        duration: '3 min'
+    // Each hour has multiple 3-minute booking slots inside
+    const subSlots = [];
+    for (let minute = 0; minute < 60; minute += 3) {
+      const subStart = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+      const subEndHour = minute + 3 >= 60 ? hour + 1 : hour;
+      const subEndMinute = minute + 3 >= 60 ? minute + 3 - 60 : minute + 3;
+      const subEnd = `${subEndHour.toString().padStart(2, '0')}:${subEndMinute.toString().padStart(2, '0')}`;
+      
+      subSlots.push({
+        id: `${locationId}-${date}-${subStart}`,
+        time: subStart,
+        endTime: subEnd,
+        displayTime: `${formatTime(hour, minute)} – ${formatTime(subEndHour, subEndMinute)}`,
+        available: Math.random() > 0.3, // 70% available for demo
       });
     }
+    
+    slots.push({
+      hour,
+      displayHour: formatTime(hour, 0).split(' ')[0] + ' ' + formatTime(hour, 0).split(' ')[1],
+      fullDisplay: `${formatTime(hour, 0)} – ${formatTime(hour + 1, 0)}`,
+      startTime,
+      endTime,
+      subSlots,
+      availableCount: subSlots.filter(s => s.available).length,
+      totalCount: subSlots.length
+    });
   }
   
   return slots;
